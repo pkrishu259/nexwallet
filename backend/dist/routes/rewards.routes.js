@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const reward_controller_1 = require("../controllers/reward.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticateJwt);
+router.get('/', reward_controller_1.getRewardsHandler);
+router.post('/scratch/:id', reward_controller_1.scratchCardHandler);
+router.post('/redeem-sparks', reward_controller_1.redeemSparksHandler);
+exports.default = router;
