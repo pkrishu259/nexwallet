@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_controller_1 = require("../controllers/auth.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const upload_middleware_1 = require("../middleware/upload.middleware");
+const router = (0, express_1.Router)();
+router.post('/send-otp', auth_controller_1.sendOtpHandler);
+router.post('/verify-otp', auth_controller_1.verifyOtpHandler);
+router.post('/signup', auth_controller_1.signupHandler);
+router.post('/login-pin', auth_controller_1.loginWithPinHandler);
+router.get('/me', auth_middleware_1.authenticateJwt, auth_controller_1.getMeHandler);
+router.put('/update-profile', auth_middleware_1.authenticateJwt, auth_controller_1.updateProfileHandler);
+router.post('/kyc-upload', auth_middleware_1.authenticateJwt, upload_middleware_1.upload.single('document'), auth_controller_1.kycUploadHandler);
+exports.default = router;
