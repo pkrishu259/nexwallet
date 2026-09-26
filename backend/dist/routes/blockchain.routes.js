@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const blockchain_controller_1 = require("../controllers/blockchain.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticateJwt);
+router.get('/chain', blockchain_controller_1.getChainHandler);
+router.get('/verify', blockchain_controller_1.verifyChainHandler);
+router.get('/web3-wallet', blockchain_controller_1.getWeb3WalletHandler);
+router.post('/mint-sbt', blockchain_controller_1.mintSbtHandler);
+router.post('/swap-sparks', blockchain_controller_1.swapSparksToNexTokensHandler);
+router.post('/vault/deposit', blockchain_controller_1.depositVaultSmartContractHandler);
+exports.default = router;
