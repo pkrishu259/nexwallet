@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const goal_controller_1 = require("../controllers/goal.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticateJwt);
+router.get('/', goal_controller_1.getGoalsHandler);
+router.post('/', goal_controller_1.createGoalHandler);
+router.post('/:id/deposit', goal_controller_1.depositToGoalHandler);
+router.post('/:id/withdraw', goal_controller_1.withdrawFromGoalHandler);
+router.delete('/:id', goal_controller_1.deleteGoalHandler);
+exports.default = router;
